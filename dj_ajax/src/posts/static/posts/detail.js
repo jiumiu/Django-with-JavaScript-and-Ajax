@@ -1,4 +1,5 @@
 console.log('hello world detail')
+
 const postBox = document.getElementById('post-box')
 const alertBox = document.getElementById('alert-box')
 const backBtn = document.getElementById('back-btn')
@@ -31,7 +32,7 @@ $.ajax({
         const data = response.data
 
         if(data.logged_in !== data.author){
-            console.log('defferent')
+            console.log('different')
             
         }else{
             console.log('the same')
