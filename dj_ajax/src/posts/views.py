@@ -5,6 +5,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import PostForm
 from profiles.models import Profile
+from .utils import action_permission
 # Create your views here.
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
@@ -98,12 +99,14 @@ def update_post(request, pk):
             'title': new_title,
             'body' : new_body,
         })
-
+        
+@action_permission
 def delete_post(request, pk):
     obj = Post.objects.get(pk=pk)
     if is_ajax(request=request):
         obj.delete()
         return JsonResponse({})
+    return JsonResponse({'msg': 'access denied - ajax only'})
 
 def image_upload_view(request):
     # print(request.FILES)
